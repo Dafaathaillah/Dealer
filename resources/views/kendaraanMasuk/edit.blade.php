@@ -42,10 +42,27 @@
                         </h5>
                     </div>
                     <div class="card-block">
-                        <form method="post" action="{{ route('kendaraanmasuk.update', $kendaraanMasuk->id) }}" id="myForm">
+                        <form method="post" action="{{ route('kendaraanmasuk.update', $kendaraanMasuk->id) }}" id="myForm" enctype="multipart/form-data">
                         @csrf
                     @method('PUT') 
                             <div class="card">
+                            <div class="row form-group">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Gambar</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="gambar" class="form-control" id="no_rangka" class="form-control date" placeholder="no_rangka">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label"></label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                           <img src="{{$kendaraanMasuk->gambar}}" style="width: 20%">
+                                     <input type="hidden" name="gambar_old" class="form-control" id="no_rangka" class="form-control date" value="{{$kendaraanMasuk->gambar}}" placeholder="no_rangka">
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">No Rangka</label>
                                     <div class="col-sm-9">

@@ -41,11 +41,19 @@
                         </div>
                     </div> 
                         <div class="card-block">
-                            <form method="post" action="{{ route('kendaraanmasuk.store') }}" id="myForm">
+                            <form method="post" action="{{ route('kendaraanmasuk.store') }}" id="myForm" enctype="multipart/form-data">
                                 @csrf
+                                 <div class="row form-group">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Gambar</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="gambar" class="form-control" id="no_rangka" class="form-control date" placeholder="no_rangka">
+                                    </div>
+                                </div>
                                 <div class="row form-group">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label">No_rangka</label>
+                                        <label class="col-form-label">No rangka</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="no_rangka" name="no_rangka" class="form-control" id="no_rangka" class="form-control date" placeholder="no_rangka">
@@ -53,7 +61,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label">No_mesin</label>
+                                        <label class="col-form-label">No mesin</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="no_mesin" name="no_mesin" class="form-control" id="no_mesin" class="form-control date" placeholder="no_mesin">
@@ -85,7 +93,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label">Tahun_Pembuatan</label>
+                                        <label class="col-form-label">Tahun Pembuatan</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="date" name="tahun_pembuatan" class="form-control" id="tahun_pembuatan" class="form-control date" placeholder="tahun_pembuatan">
@@ -93,7 +101,7 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label">Tanggal_Masuk</label>
+                                        <label class="col-form-label">Tanggal Masuk</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="date" name="tanggal_masuk" class="form-control" id="tanggal_masuk" class="form-control date" placeholder="tanggal_masuk">

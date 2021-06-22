@@ -26,3 +26,4 @@ Route::get('/admin', function () {
 });
 
 Route::resource('kendaraanmasuk', KendaraanMasukController::class);
+Route::get('/export_kendaraanmasuk', [App\Http\Controllers\KendaraanMasukController::class, 'exportPdf']);

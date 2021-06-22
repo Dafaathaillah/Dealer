@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KendaraanMasuk;
 use Illuminate\Http\Request;
-
+use PDF;
 class KendaraanMasukController extends Controller
 {
     /**
@@ -14,7 +14,7 @@ class KendaraanMasukController extends Controller
      */
     public function index()
     {
-        $kendaraanMasuks = KendaraanMasuk::all();
+        $kendaraanMasuks = KendaraanMasuk::paginate(5);
         return view('kendaraanMasuk.index', compact('kendaraanMasuks'));
     }
 
@@ -45,7 +45,10 @@ class KendaraanMasukController extends Controller
             'tahun_pembuatan' => 'required',
             'tanggal_masuk' => 'required'
         ]);
-        KendaraanMasuk::create($request->all());
+        $id = KendaraanMasuk::create($request->all())->id;
+        $kdrs = KendaraanMasuk::find($id);
+        $kdrs->gambar = $this->uploadFile($request,'gambar');
+        $kdrs->update();
         return redirect()->route('kendaraanmasuk.index')-> with('success', 'Data Berhasil Ditambah');
     }
 
@@ -92,6 +95,16 @@ class KendaraanMasukController extends Controller
         ]);
 
         KendaraanMasuk::find($id)->update($request->all());
+        if($request->file('gambar')!=null)
+        {
+            $gambar = $this->uploadFile($request,'gambar');
+        }else
+        {
+             $gambar = $request->gambar_old;
+        }
+        $kdrs = KendaraanMasuk::find($id);
+        $kdrs->gambar = $gambar;
+        $kdrs->update();
         return redirect()->route('kendaraanmasuk.index')-> with('success', 'Data Berhasil DiUpdate');;
     }
 
@@ -105,5 +118,33 @@ class KendaraanMasukController extends Controller
     {
         KendaraanMasuk::find($id)->delete();
         return redirect()->route('kendaraanmasuk.index')-> with('success', 'Data Berhasil Dihapus');
+    }
+
+     public function uploadFile(Request $request,$oke)
+    {
+            $result ='';
+            $file = $request->file($oke);
+            $name = $file->getClientOriginalName();
+            // $tmp_name = $file['tmp_name'];
+
+            $extension = explode('.',$name);
+            $extension = strtolower(end($extension));
+
+            $key = rand().'-'.$oke;
+            $tmp_file_name = "{$key}.{$extension}";
+            $tmp_file_path = "images/kendaraan/";
+            $file->move($tmp_file_path,$tmp_file_name);
+            // if(move_uploaded_file($tmp_name, $tmp_file_path)){
+            $result = url('images/kendaraan').'/'.$tmp_file_name;
+            // }
+        return $result;
+    }
+
+    public function exportPdf()
+    {
+           $data = KendaraanMasuk::all();
+           $pdf = PDF::loadview('kendaraanMasuk.pdf',compact('data'));
+           $pdf->setPaper('legal','landscape');
+           return $pdf->download('DATA-KENDAARAAN-MASUK.pdf');
     }
 }

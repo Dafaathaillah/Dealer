@@ -43,9 +43,10 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
-                            <table class="table table-bordered">
+                            <table id="tableok" class="table table-bordered">
                                 <tr>
                                     <th>ID Barang</th>
+                                    <th>Gambar</th>
                                     <th>Nomer Rangka</th>
                                     <th>Nomer Mesin</th>
                                     <th>Type</th>
@@ -55,9 +56,10 @@
                                     <th>Tanggal Masuk</th>
                                     <th width="280px">Action</th>
                                 </tr>
-                            @foreach ($kendaraanMasuks as $km)
+                            @foreach ($kendaraanMasuks as $key => $km)
                                 <tr>
-                                    <td> {{ $km->id }} </td>
+                                    <td> {{ $key+1 }} </td>
+                                    <td><img src="{{$km->gambar}}" style="width: 90%"></td>
                                     <td> {{ $km->no_rangka }} </td>
                                     <td> {{ $km->no_mesin }} </td>
                                     <td> {{ $km->type }} </td>
@@ -77,8 +79,12 @@
                             @endforeach
 
                             </table>
+
                         </div>
+                        {{$kendaraanMasuks->links()}}
+
                     </div>
+                      <p align="center"><a style="width: 30%" class="btn btn-primary feather icon-download" href="{{ url('export_kendaraanmasuk') }}" target="_blank">Unduh Data</a></p>
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@ class CreateKendaraanMasuksTable extends Migration
             $table->String('type');
             $table->String('jenis');
             $table->String('warna');
+            $table->String('gambar')->nullable();
             $table->date('tahun_pembuatan');
             $table->date('tanggal_masuk');
             $table->timestamps();

@@ -34,7 +34,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admindek/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admindek/widget.css') }}">
-
+    
     @stack('style')
 </head>
 
